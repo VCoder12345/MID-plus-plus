@@ -1,0 +1,32 @@
+main-block      → (statement | function | import-stmt)*
+statements      → statement*
+statement       → (out-statement | if-statement | varDecl | while-statement
+ | assignment | fun-call | return-statement | for-statement | self-assign | continue | break)? NEWLINE;
+self-assign     → ('+=' | '-=' | '/=' | '*=') expr
+out-statement   → "out" expr;
+if-statement    → "if" expr statements ("else" statements)? "end"
+while-statement → "while" expr statements "end"
+for-statement   → "for" (varDecl | assignment) ',' expr? ',' assignment? statements
+return-statement → "return" (expr)?
+function        → "fun" ID  params? statements end
+params          → '(' (ID (',' ID)*)? ')'
+fun-call        → ID args? 
+args            → '('  (expr (',' expr)*)? ')'
+var-decl        → ("var" | "const") ID ("=" expr)?;
+assignment      → target (self-assign | "=" expr);
+target          → ID ('[' expr ']')
+expr            → in-expr;
+in-expr         → "in" or | or
+or              → and ("or" and)
+and             → equality ("and" equality)
+equality        → comparison (("==" | "!=") comparison)*
+comparison      → term (("<" | "<=" | ">" | ">=") term)*
+term            → factor (("+" | "-") factor)*;
+factor          → power (("*" | "/") power)*;
+power           → unary ("^" unary)*;
+unary           → ("!" | (("+"|"-"))* | ("(" type-name ")") )) primary;
+primary         → "(" expr ")" | type;
+type            → array | ((NUMBER | STRING | TRUE | FALSE | NIL | ID | fun-call) ('[' expr ']')?);
+array           → '[' (expr (',' expr)*)? ']'
+type-name       → NUMBER_TYPE | STRING_TYPE | BOOL_TYPE
+import-stmt     → IMPORT STRING

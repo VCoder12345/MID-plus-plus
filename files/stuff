@@ -1,0 +1,6 @@
+import "std/utils"
+
+var ar = [3, 8, 7, 2, 5, 4, 777, 7]
+out ar
+quicksort(ar)
+out ar

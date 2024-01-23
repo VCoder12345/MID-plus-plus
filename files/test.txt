@@ -1,0 +1,5 @@
+var a = [3, 5, 7]
+out a 
+var x = 2
+a[x - 1] = 2
+out a

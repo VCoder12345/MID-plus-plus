@@ -1,0 +1,63 @@
+var w = 3
+var h = 3
+
+var fields = []
+for var i = 0, i < w * h, i += 1
+    fields += 0
+end
+
+var finished = false
+var player = 0
+
+while !finished
+    renderGame()
+    out "Spieler " + (player + 1) + " ist dran!"
+    var cx = (num)(in "Feld-X: ")
+    var cy = (num)(in "Feld-Y: ")
+    if(cx >= 0 and cx < w and cy >= 0 and cy < h)
+        if(getField(cx, cy) == 0)
+            player = (player + 1) % 2
+            setField(cx, cy, player + 1)
+        else
+            out "das Feld ist schon belegt!"
+        end
+    else
+        out "das Feld ist ausserhalb!"
+    end
+end
+
+fun renderGame()
+    for var y = 0, y < h, y += 1
+        var lineTxt = ""
+        for var x = 0, x < w, x += 1
+            if(x > 0)
+                lineTxt += " "
+            end
+            lineTxt += txtOfField(x, y)
+        end
+        out lineTxt
+    end
+end
+
+fun setField(x, y, val)
+    fields[x + y * w] = val
+end
+
+fun getField(x, y)
+    return fields[x + y * w]
+end
+
+fun txtOfField(x, y)
+    var f = getField(x, y)
+    if f == 0
+        return "-"
+    end
+
+    if f == 1
+        return "x"
+    end
+
+    if f == 2
+        return "o"
+    end
+end

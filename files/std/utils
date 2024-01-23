@@ -1,0 +1,83 @@
+fun merge_sortIntern(ar, s, e)
+	if s < e - 1
+	
+	
+	var m = floor((s + e) / 2)
+	merge_sortIntern(ar, s, m)
+	merge_sortIntern(ar, m, e)
+	
+	var b = []
+	var l = s
+	var r = m
+	var p = s
+	
+	while l < m and r < e
+		if ar[l] <= ar[r]
+			b += ar[l]
+			l += 1
+		else
+			b += ar[r]
+			r += 1
+		end
+		p += 1
+	end
+	
+	while p < e
+		if r < e
+			b += ar[r]
+			r += 1
+		else
+			b += ar[l]
+			l += 1
+		end
+		p += 1
+	end
+	
+	
+	for var i = 0, i < len(b), i += 1
+		ar[s + i] = b[i]
+	end
+	
+	end
+end
+
+fun merge_sort(ar)
+	merge_sortIntern(ar, 0, len(ar))
+end
+
+fun quick_split(ar, l, r) 
+	var i = l
+	var j = r - 2
+	var p = ar[r - 1]
+	
+	while i <= j
+		while i < r - 1 and ar[i] <= p
+			i = i + 1
+		end
+		while j >= l and ar[j] > p
+			j = j - 1
+		end
+		if i < j
+			var temp = ar[i]
+			ar[i] = ar[j]
+			ar[j] = temp
+		end
+	end
+	
+	var temp = ar[i]
+	ar[i] = ar[r - 1]
+	ar[r - 1] = temp
+	return i
+end
+
+fun quicksortIntern(ar, l, r)
+	if l < r - 1
+		var k = quick_split(ar, l, r)
+		quicksortIntern(ar, l, k)
+		quicksortIntern(ar, k + 1, r)
+	end
+end
+
+fun quicksort(ar)
+	quicksortIntern(ar, 0, len(ar))
+end

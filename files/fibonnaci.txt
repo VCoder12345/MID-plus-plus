@@ -1,0 +1,11 @@
+var number = (num)(in "Gebe eine Zahl ein: ")
+;var number = 20
+
+fun fib(n)
+	if(n <= 1)
+		return n
+	end
+	return fib(n - 1) + fib(n - 2)
+end
+
+out "die " + number + "te Zahl in der Fibonnaci-Reihe ist " + fib(number)
